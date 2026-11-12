@@ -1,9 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090303">
 <title>TRX Reward</title>
 
 <style>
@@ -14,81 +14,81 @@
 }
 
 body {
-  background: #080303;
+  background: #090303;
   color: white;
   font-family: Arial, sans-serif;
-}
-
-.app {
-  width: 100%;
-  max-width: 500px;
   min-height: 100vh;
-  margin: auto;
-  padding-bottom: 100px;
-  background:
-    radial-gradient(ellipse at 100% 20%, #500000 0%, transparent 42%),
-    radial-gradient(ellipse at 0% 90%, #390000 0%, transparent 45%),
-    #080303;
+  padding-bottom: 105px;
 }
 
-/* TOP HEADER REMOVED */
+:root {
+  --red: #ed1831;
+  --dark-red: #5b0009;
+  --card: #17090b;
+  --border: #63202a;
+  --muted: #aaa;
+}
+
+main {
+  width: 100%;
+  max-width: 650px;
+  margin: auto;
+}
 
 /* PROFILE */
 .profile {
   display: flex;
   align-items: center;
-  padding: 25px 22px;
-  gap: 15px;
+  gap: 16px;
+  padding: 30px 22px;
 }
 
-.coin {
-  width: 76px;
-  height: 76px;
-  flex-shrink: 0;
+.avatar {
+  width: 100px;
+  height: 100px;
+  min-width: 100px;
   border-radius: 50%;
+  background: linear-gradient(145deg, #ff394e, #c90019);
+  border: 6px solid #ff7180;
+  box-shadow: 0 0 22px #ed183188;
   display: grid;
   place-items: center;
-  font-size: 42px;
+  font-size: 48px;
   font-weight: bold;
-  background: linear-gradient(145deg,#ff4545,#c90016);
-  border: 4px solid #ff7777;
-  box-shadow: 0 0 16px #e00024;
 }
 
 .welcome {
-  flex: 1;
-}
-
-.welcome p {
   color: #aaa;
-  font-size: 17px;
-  margin-bottom: 5px;
+  font-size: 20px;
+  line-height: 1.4;
 }
 
-.welcome h2 {
-  font-size: 26px;
+.username {
+  font-size: 32px;
+  margin-top: 5px;
 }
 
-.logo {
-  width: 65px;
-  height: 65px;
-  border: 2px solid #e50020;
-  border-radius: 18px;
+.profile-icon {
+  margin-left: auto;
+  width: 75px;
+  height: 75px;
+  border: 3px solid var(--red);
+  border-radius: 25px;
+  color: var(--red);
   display: grid;
   place-items: center;
-  font-size: 35px;
-  color: #ff263f;
+  font-size: 36px;
 }
 
 /* BALANCE CARD */
 .balance-card {
   margin: 8px 22px 30px;
-  padding: 26px 22px;
-  border: 2px solid #ed1831;
-  border-radius: 36px;
+  padding: 30px 22px;
+  border: 3px solid var(--red);
+  border-radius: 42px;
   background:
-    radial-gradient(circle at 85% 20%,#580000 0%,transparent 45%),
-    linear-gradient(135deg,#370000,#100303 75%);
+    radial-gradient(circle at 85% 20%, #580000 0%, transparent 45%),
+    linear-gradient(135deg, #370000, #100303 75%);
   box-shadow: 0 0 16px #79000d;
 }
 
@@ -102,15 +102,15 @@ body {
 .balance-heading h3 {
   color: #bbb;
   letter-spacing: 2px;
-  font-size: 15px;
+  font-size: 17px;
 }
 
 .currency {
   background: #67202b;
-  padding: 10px 16px;
+  padding: 14px 18px;
   border-radius: 30px;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 18px;
   white-space: nowrap;
 }
 
@@ -121,182 +121,132 @@ body {
 .amount {
   font-size: clamp(42px, 12vw, 58px);
   font-weight: bold;
-  margin: 27px 0;
+  margin: 35px 0;
 }
 
 .stats {
   display: grid;
-  grid-template-columns: repeat(3,minmax(0,1fr));
-  gap: 8px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
 }
 
 .stat {
+  background: #211113;
+  border: 2px solid var(--border);
+  border-radius: 35px;
+  padding: 26px 5px;
   text-align: center;
-  padding: 19px 4px;
-  border-radius: 23px;
-  background: linear-gradient(145deg,#391416,#211010);
-  border: 1px solid #70232a;
-  min-width: 0;
 }
 
 .stat p {
   color: #bbb;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: bold;
-  margin-bottom: 12px;
 }
 
 .stat h2 {
-  font-size: clamp(16px, 5vw, 23px);
-}
-
-/* WATCH BUTTON */
-.watch-main {
-  width: 100%;
-  border: none;
-  border-radius: 27px;
   margin-top: 22px;
-  padding: 21px 8px;
-  background: linear-gradient(100deg,#ff101d,#bd0015);
+  font-size: 25px;
+}
+
+.primary-btn {
+  width: 100%;
+  margin-top: 30px;
+  padding: 22px 12px;
+  border: none;
+  border-radius: 40px;
+  background: linear-gradient(100deg, #ff102d, #c90019);
   color: white;
-  font-size: 19px;
+  font-size: 21px;
   font-weight: bold;
-  box-shadow: 0 0 15px #9b0016;
   cursor: pointer;
+  box-shadow: 0 5px 18px #ed183155;
 }
 
-/* EARNING SECTION */
-.earn-section {
-  padding: 0 22px;
+.primary-btn:active {
+  transform: scale(.98);
 }
 
-.section-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 22px;
-}
-
-.section-heading h2 {
-  font-size: 22px;
-}
-
-.section-heading p {
-  color: #aaa;
-  font-size: 13px;
-  white-space: nowrap;
-}
-
-.earn-cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-}
-
-.earn-card {
-  min-height: 215px;
-  padding: 21px 17px;
-  border: 2px solid #d90025;
-  border-radius: 34px;
-  background: linear-gradient(145deg,#520006,#180506);
-  cursor: pointer;
-}
-
-.earn-card.pop {
-  background: linear-gradient(145deg,#35191b,#171011);
-  border-color: #55262c;
-}
-
-.card-icon {
-  width: 70px;
-  height: 70px;
-  border-radius: 23px;
-  display: grid;
-  place-items: center;
-  background: #7a1722;
-  font-size: 32px;
-  margin-bottom: 32px;
-}
-
-.earn-card h2 {
-  font-size: 20px;
-  margin-bottom: 10px;
-}
-
-.earn-card p {
-  font-size: 15px;
-  color: #c9aeb0;
-  line-height: 1.4;
-}
-
-/* UNLIMITED ADS */
-.limit {
-  margin-top: 25px;
-  padding: 22px;
-  border: 1px solid #6b2028;
-  border-radius: 28px;
-  background: #150809;
+/* DAILY LIMIT */
+.limit-card {
+  margin: 0 22px 30px;
+  padding: 28px 22px;
+  border: 2px solid var(--border);
+  border-radius: 35px;
+  background: #16090b;
 }
 
 .limit-heading {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-  font-size: 15px;
+  gap: 10px;
+  font-size: 19px;
 }
 
-.unlimited {
-  color: #ff354c;
+.limit-value {
+  color: #ff3650;
   font-weight: bold;
-  white-space: nowrap;
 }
 
-.limit p {
+.limit-card p {
+  margin-top: 22px;
   color: #aaa;
-  font-size: 13px;
-  margin-top: 12px;
+  font-size: 17px;
+  line-height: 1.5;
 }
 
-/* OTHER PAGES */
+/* PAGES */
 .page {
   display: none;
-  padding: 25px 22px;
+  padding-top: 20px;
 }
 
 .page.active {
   display: block;
 }
 
-.page h2 {
-  margin-bottom: 20px;
+.section-title {
+  padding: 20px 22px;
+  font-size: 27px;
 }
 
 .info-card {
-  padding: 25px;
-  background: #24090c;
-  border: 1px solid #8c1727;
-  border-radius: 25px;
-  margin-bottom: 18px;
+  margin: 12px 22px;
+  padding: 24px;
+  border: 2px solid var(--border);
+  border-radius: 28px;
+  background: var(--card);
+}
+
+.info-card h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
 }
 
 .info-card p {
-  color: #bbb;
-  margin-top: 10px;
-  line-height: 1.5;
+  color: #aaa;
+  line-height: 1.6;
 }
 
-.action-button {
-  width: 100%;
-  padding: 17px;
-  background: #e50020;
-  color: white;
-  border: 0;
-  border-radius: 18px;
-  font-size: 17px;
-  font-weight: bold;
+.info-card button {
   margin-top: 18px;
+  background: #ed1831;
+  color: white;
+  border: none;
+  padding: 13px 20px;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.demo-note {
+  margin: 20px 22px;
+  padding: 15px;
+  color: #aaa;
+  font-size: 13px;
+  line-height: 1.5;
+  border: 1px solid #63202a;
+  border-radius: 15px;
 }
 
 /* BOTTOM NAVIGATION */
@@ -305,291 +255,277 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  max-width: 500px;
-  margin: auto;
-  height: 83px;
+  height: 100px;
   background: #080303;
-  border-top: 1px solid #68101b;
-  display: grid;
-  grid-template-columns: repeat(5,1fr);
+  border-top: 2px solid #451018;
+  display: flex;
+  justify-content: space-around;
   z-index: 10;
 }
 
 .nav-item {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: #999;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 7px;
-  color: #999;
-  font-size: 13px;
+  gap: 9px;
+  font-size: 15px;
   cursor: pointer;
 }
 
-.nav-item .icon {
-  font-size: 26px;
+.nav-icon {
+  font-size: 31px;
+  line-height: 1;
 }
 
 .nav-item.active {
-  color: #ff1937;
-  border-top: 4px solid #ff1937;
+  color: var(--red);
 }
 
-/* SMALL SCREENS */
-@media(max-width:360px) {
+.nav-item.active::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  height: 7px;
+  width: 20%;
+  background: var(--red);
+  left: 0;
+}
+
+@media (max-width: 360px) {
+  .profile {
+    padding: 25px 14px;
+  }
+
+  .avatar {
+    width: 78px;
+    height: 78px;
+    min-width: 78px;
+    font-size: 38px;
+  }
+
+  .username {
+    font-size: 25px;
+  }
+
+  .profile-icon {
+    width: 55px;
+    height: 55px;
+  }
+
   .balance-card {
-    padding: 21px 14px;
+    margin-left: 12px;
+    margin-right: 12px;
+    padding: 24px 14px;
   }
 
-  .stat {
-    padding: 15px 2px;
+  .stat p {
+    font-size: 11px;
   }
 
-  .earn-card {
-    padding: 16px 12px;
+  .stat h2 {
+    font-size: 20px;
   }
 
-  .earn-card h2 {
-    font-size: 18px;
+  .nav-item {
+    font-size: 13px;
   }
 }
 </style>
 </head>
 
 <body>
-<div class="app">
+<main>
 
-  <!-- HOME -->
-  <main id="home" class="page active">
+  <!-- HOME PAGE -->
+  <section id="home" class="page active">
 
     <div class="profile">
-      <div class="coin">T</div>
+      <div class="avatar">T</div>
 
-      <div class="welcome">
-        <p>Welcome back</p>
-        <h2>ARJO</h2>
+      <div>
+        <div class="welcome">Welcome back</div>
+        <h1 class="username">ARJO</h1>
       </div>
 
-      <div class="logo">◇</div>
+      <div class="profile-icon">◇</div>
     </div>
 
-    <section class="balance-card">
-
+    <div class="balance-card">
       <div class="balance-heading">
         <h3>YOUR BALANCE</h3>
-
-        <span class="currency">
+        <div class="currency">
           <span class="green-dot">●</span> TRX
-        </span>
+        </div>
       </div>
 
-      <div class="amount" id="balance">0.00</div>
+      <div class="amount">0.00</div>
 
       <div class="stats">
-
         <div class="stat">
           <p>EARNED</p>
-          <h2 id="earned">0.00</h2>
+          <h2>0.00</h2>
         </div>
 
         <div class="stat">
           <p>WITHDRAWN</p>
-          <h2 id="withdrawn">0.00</h2>
+          <h2>0.00</h2>
         </div>
 
         <div class="stat">
           <p>ADS</p>
-          <h2 id="ads">0</h2>
+          <h2>0</h2>
         </div>
-
       </div>
 
-      <button class="watch-main" onclick="watchAd()">
-        ▷　Watch ad for TRX
+      <button class="primary-btn" onclick="demoMessage()">
+        ▷ &nbsp; Watch ad for TRX
       </button>
+    </div>
 
-    </section>
-
-    <section class="earn-section">
-
-      <div class="section-heading">
-        <h2>Earn now</h2>
-        <p><span id="adCount">0</span> ads today</p>
+    <div class="limit-card">
+      <div class="limit-heading">
+        <span>Daily ad limit</span>
+        <span class="limit-value">UNLIMITED ∞</span>
       </div>
+      <p>Watch ads and earn TRX anytime!</p>
+    </div>
 
-      <div class="earn-cards">
+    <div class="demo-note">
+      Demo interface only. No real advertisements, TRX rewards,
+      deposits or withdrawals are connected.
+    </div>
+  </section>
 
-        <div class="earn-card" onclick="watchAd()">
-          <div class="card-icon">▷</div>
-          <h2>Watch Ad</h2>
-          <p>Earn 0.10 TRX per ad</p>
-        </div>
-
-        <div class="earn-card pop" onclick="popAd()">
-          <div class="card-icon">▣</div>
-          <h2>Pop-Up Ad</h2>
-          <p>Earn 0.10 TRX per ad</p>
-        </div>
-
-      </div>
-
-      <div class="limit">
-        <div class="limit-heading">
-          <span>Daily ad limit</span>
-          <strong class="unlimited">UNLIMITED ∞</strong>
-        </div>
-
-        <p>Watch ads and earn TRX anytime!</p>
-      </div>
-
-    </section>
-  </main>
-
-  <!-- TASKS -->
+  <!-- TASKS PAGE -->
   <section id="tasks" class="page">
-    <h2>Tasks</h2>
+    <h2 class="section-title">Daily Tasks</h2>
 
     <div class="info-card">
-      <h3>Complete tasks</h3>
-      <p>New earning tasks will appear here.</p>
+      <h3>Daily Visit</h3>
+      <p>Visit the website and check your dashboard.</p>
+      <button onclick="demoMessage()">Check Task</button>
+    </div>
+
+    <div class="info-card">
+      <h3>Watch Advertisement</h3>
+      <p>Advertisement rewards are not connected in this demo.</p>
+      <button onclick="demoMessage()">Watch Ad</button>
     </div>
   </section>
 
-  <!-- REFERRAL -->
+  <!-- REFER PAGE -->
   <section id="refer" class="page">
-    <h2>Refer &amp; Earn</h2>
+    <h2 class="section-title">Refer Friends</h2>
 
     <div class="info-card">
-      <h3>Invite your friends</h3>
-      <p>Share your referral link and earn rewards.</p>
-
-      <button class="action-button" onclick="copyReferral()">
-        Copy referral link
-      </button>
+      <h3>Invite Your Friends</h3>
+      <p>Share this demo website with your friends.</p>
+      <button onclick="sharePage()">Share Website</button>
     </div>
   </section>
 
-  <!-- WALLET -->
+  <!-- WALLET PAGE -->
   <section id="wallet" class="page">
-    <h2>My Wallet</h2>
+    <h2 class="section-title">My Wallet</h2>
 
     <div class="info-card">
       <h3>TRX Balance</h3>
-      <h2 id="walletBalance">0.00 TRX</h2>
-      <p>TRON withdrawal system will be connected later.</p>
+      <p>0.00 TRX</p>
+      <button onclick="demoMessage()">Withdraw</button>
+    </div>
+
+    <div class="demo-note">
+      Withdrawals are not available because this is a demo interface.
     </div>
   </section>
 
-  <!-- PROFILE -->
+  <!-- PROFILE PAGE -->
   <section id="profile" class="page">
-    <h2>My Profile</h2>
+    <h2 class="section-title">My Profile</h2>
 
     <div class="info-card">
       <h3>ARJO</h3>
-      <p>TRX Reward member</p>
-      <p>Account ID: Demo user</p>
+      <p>Account dashboard</p>
+    </div>
+
+    <div class="info-card">
+      <h3>Account Balance</h3>
+      <p>0.00 TRX</p>
     </div>
   </section>
 
-  <!-- BOTTOM NAVIGATION -->
-  <nav class="bottom-nav">
+</main>
 
-    <div class="nav-item active" onclick="showPage('home',this)">
-      <span class="icon">⌂</span>
-      <span>Home</span>
-    </div>
+<!-- BOTTOM NAVIGATION -->
+<nav class="bottom-nav">
+  <button class="nav-item active" onclick="showPage('home', this)">
+    <span class="nav-icon">⌂</span>
+    <span>Home</span>
+  </button>
 
-    <div class="nav-item" onclick="showPage('tasks',this)">
-      <span class="icon">☑</span>
-      <span>Tasks</span>
-    </div>
+  <button class="nav-item" onclick="showPage('tasks', this)">
+    <span class="nav-icon">☑</span>
+    <span>Tasks</span>
+  </button>
 
-    <div class="nav-item" onclick="showPage('refer',this)">
-      <span class="icon">♧</span>
-      <span>Refer</span>
-    </div>
+  <button class="nav-item" onclick="showPage('refer', this)">
+    <span class="nav-icon">♧</span>
+    <span>Refer</span>
+  </button>
 
-    <div class="nav-item" onclick="showPage('wallet',this)">
-      <span class="icon">▣</span>
-      <span>Wallet</span>
-    </div>
+  <button class="nav-item" onclick="showPage('wallet', this)">
+    <span class="nav-icon">▣</span>
+    <span>Wallet</span>
+  </button>
 
-    <div class="nav-item" onclick="showPage('profile',this)">
-      <span class="icon">♙</span>
-      <span>Profile</span>
-    </div>
-
-  </nav>
-
-</div>
+  <button class="nav-item" onclick="showPage('profile', this)">
+    <span class="nav-icon">♙</span>
+    <span>Profile</span>
+  </button>
+</nav>
 
 <script>
-
-// FRONTEND DEMO
-// Real ads and withdrawals are not connected.
-
-let balance = 0.00;
-let earned = 0.00;
-let withdrawn = 0.00;
-let ads = 0;
-
-function updateUI() {
-  document.getElementById("balance").textContent =
-    balance.toFixed(2);
-
-  document.getElementById("earned").textContent =
-    earned.toFixed(2);
-
-  document.getElementById("withdrawn").textContent =
-    withdrawn.toFixed(2);
-
-  document.getElementById("ads").textContent = ads;
-
-  document.getElementById("adCount").textContent = ads;
-
-  document.getElementById("walletBalance").textContent =
-    balance.toFixed(2) + " TRX";
-}
-
-function watchAd() {
-  alert(
-    "Rewarded ads are not connected yet. " +
-    "Your balance will not change in demo mode."
-  );
-}
-
-function popAd() {
-  alert(
-    "Pop-up ad provider is not connected yet. " +
-    "Your balance will not change in demo mode."
-  );
-}
-
-function showPage(page, element) {
-
-  document.querySelectorAll(".page").forEach(p => {
-    p.classList.remove("active");
+function showPage(pageId, button) {
+  document.querySelectorAll('.page').forEach(page => {
+    page.classList.remove('active');
   });
 
-  document.getElementById(page).classList.add("active");
+  document.getElementById(pageId).classList.add('active');
 
-  document.querySelectorAll(".nav-item").forEach(n => {
-    n.classList.remove("active");
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.classList.remove('active');
   });
 
-  element.classList.add("active");
+  button.classList.add('active');
+
+  window.scrollTo(0, 0);
 }
 
-function copyReferral() {
-  alert(
-    "Your referral link will be generated " +
-    "after connecting the Telegram bot."
-  );
+function demoMessage() {
+  alert("This is a demo feature. Real rewards and advertisements are not connected.");
 }
 
-updateUI();
-
+function sharePage() {
+  if (navigator.share) {
+    navigator.share({
+      title: "TRX Reward",
+      text: "Check out this website!",
+      url: window.location.href
+    });
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(window.location.href)
+      .then(() => alert("Website link copied!"))
+      .catch(() => alert("Please copy the website link from your browser."));
+  } else {
+    alert("Website link: " + window.location.href);
+  }
+}
 </script>
 
 </body>
-</html>
+        </html>
