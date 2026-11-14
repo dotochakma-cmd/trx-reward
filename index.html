@@ -3,17 +3,17 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="theme-color" content="#090303">
 <title>TRX Reward</title>
 
-<!-- Telegram SDK -->
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-<!-- Monetag SDK -->
-<script src="https://libtl.com/sdk.js"
- data-zone="12259553"
- data-sdk="show_12259553"></script>
+<script
+src="https://libtl.com/sdk.js"
+data-zone="12259553"
+data-sdk="show_12259553">
+</script>
 
 <style>
 * {
@@ -39,17 +39,13 @@ html, body {
 }
 
 body {
-  padding-bottom: 76px;
   overflow-x: hidden;
 }
 
-body.dashboard-view {
-  overflow: hidden;
-}
+/* HOME SCREEN */
 
-button {
-  cursor: pointer;
-  font-family: inherit;
+body.home-mode {
+  overflow: hidden;
 }
 
 .page {
@@ -59,6 +55,20 @@ button {
 
 .page.active {
   display: block;
+}
+
+/* LOCK HOME TO AVAILABLE SCREEN */
+
+body.home-mode #home.active {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 76px;
+  width: 100%;
+  overflow: hidden;
+  transform-origin: top left;
 }
 
 /* PROFILE */
@@ -103,6 +113,893 @@ button {
   display: grid;
   place-items: center;
   font-size: 19px;
+}
+
+/* BALANCE */
+
+.balance-card {
+  margin: 0 10px 9px;
+  padding: 12px;
+  border: 2px solid var(--border);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 85% 20%,#580000 0%,transparent 45%),
+    linear-gradient(135deg,#370000,#100303 75%);
+  box-shadow: 0 0 12px #79000d;
+}
+
+.balance-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.balance-heading h3 {
+  color: #bbb;
+  letter-spacing: 1px;
+  font-size: 12px;
+}
+
+.currency {
+  background: #67202b;
+  padding: 7px 12px;
+  border-radius: 25px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.green-dot {
+  color: #00ed79;
+}
+
+.amount {
+  font-size: 35px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 6px;
+}
+
+.stat {
+  background: #211113;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 8px 3px;
+  text-align: center;
+}
+
+.stat p {
+  color: #bbb;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.stat h2 {
+  margin-top: 5px;
+  font-size: 16px;
+}
+
+.primary-btn,
+.action-btn {
+  width: 100%;
+  margin-top: 11px;
+  padding: 12px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(100deg,#ff102d,#c90019);
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px #ed183155;
+}
+
+button:disabled {
+  opacity: .6;
+  cursor: wait;
+}
+
+/* DAILY LIMIT */
+
+.limit-card {
+  margin: 0 10px 9px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  background: #16090b;
+}
+
+.limit-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.limit-value {
+  color: #ff3650;
+  font-weight: bold;
+}
+
+.limit-card p {
+  margin-top: 5px;
+  color: #aaa;
+  font-size: 10px;
+}
+
+/* QUICK ACTIONS */
+
+.quick-section {
+  margin: 0 10px 9px;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.explore {
+  color: #ff5267;
+  background: none;
+  border: none;
+  font-size: 11px;
+}
+
+.quick-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+}
+
+.quick-card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  background: #19090d;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: white;
+  text-align: left;
+}
+
+.quick-icon {
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  display: grid;
+  place-items: center;
+  background: #521421;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.quick-card strong {
+  font-size: 10px;
+}
+
+.quick-card small {
+  display: block;
+  margin-top: 3px;
+  color: #aaa;
+  font-size: 9px;
+}
+
+/* GUIDE */
+
+.guide-card {
+  margin: 0 10px 9px;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  background: #16090b;
+}
+
+.guide-card h3 {
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.guide-subtitle {
+  color: #aaa;
+  font-size: 9px;
+  margin: 5px 0 7px;
+}
+
+.guide-list {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 6px;
+}
+
+.guide-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 7px;
+  border: 1px solid #49202a;
+  border-radius: 10px;
+  min-width: 0;
+}
+
+.guide-number {
+  width: 25px;
+  height: 25px;
+  display: grid;
+  place-items: center;
+  border-radius: 7px;
+  background: #521421;
+  color: #ff7182;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.guide-item strong {
+  font-size: 9px;
+  line-height: 1.3;
+}
+
+.guide-item p {
+  color: #aaa;
+  font-size: 8px;
+  line-height: 1.3;
+}
+
+/* ACTIVITY */
+
+.activity-card {
+  margin: 0 10px;
+  padding: 9px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #150809;
+}
+
+.activity-card strong {
+  font-size: 10px;
+}
+
+.activity-card p {
+  color: #aaa;
+  font-size: 9px;
+  margin-top: 3px;
+}
+
+/* OTHER PAGES */
+
+.page-title {
+  padding: 30px 20px;
+  font-size: 27px;
+}
+
+.info-card {
+  margin: 10px 15px;
+  padding: 22px;
+  border: 2px solid var(--border);
+  border-radius: 24px;
+  background: var(--card);
+}
+
+.info-card h3 {
+  font-size: 19px;
+  margin-bottom: 10px;
+}
+
+.info-card p {
+  color: #aaa;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.info-card .action-btn {
+  width: auto;
+  padding: 13px 25px;
+  font-size: 15px;
+}
+
+.demo-note {
+  margin: 15px;
+  padding: 13px;
+  color: #aaa;
+  font-size: 12px;
+  line-height: 1.5;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 76px;
+  background: #080303;
+  border-top: 2px solid #451018;
+  display: flex;
+  justify-content: space-around;
+  z-index: 100;
+}
+
+.nav-item {
+  position: relative;
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: #999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 11px;
+}
+
+.nav-icon {
+  font-size: 23px;
+  line-height: 1;
+}
+
+.nav-item.active {
+  color: var(--red);
+}
+
+.nav-item.active::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  height: 4px;
+  width: 60%;
+  background: var(--red);
+  left: 20%;
+}
+
+</style>
+</head>
+
+<body class="home-mode">
+
+<!-- HOME -->
+<section id="home" class="page active">
+
+  <div class="profile">
+    <div class="avatar">T</div>
+
+    <div>
+      <div class="welcome">Welcome back</div>
+      <h1 class="username">ARJO</h1>
+    </div>
+
+    <div class="profile-icon">◇</div>
+  </div>
+
+  <div class="balance-card">
+
+    <div class="balance-heading">
+      <h3>YOUR BALANCE</h3>
+
+      <div class="currency">
+        <span class="green-dot">●</span> TRX
+      </div>
+    </div>
+
+    <div class="amount" id="balance">0.00</div>
+
+    <div class="stats">
+
+      <div class="stat">
+        <p>EARNED</p>
+        <h2 id="earned">0.00</h2>
+      </div>
+
+      <div class="stat">
+        <p>WITHDRAWN</p>
+        <h2 id="withdrawn">0.00</h2>
+      </div>
+
+      <div class="stat">
+        <p>ADS</p>
+        <h2 id="ads">0</h2>
+      </div>
+
+    </div>
+
+    <button
+      class="primary-btn"
+      id="watchAdButton"
+      onclick="watchAd()">
+      ▷ &nbsp; Watch ad for TRX
+    </button>
+
+  </div>
+
+  <div class="limit-card">
+
+    <div class="limit-heading">
+      <span>Daily ad limit</span>
+      <span class="limit-value">UNLIMITED ∞</span>
+    </div>
+
+    <p>Watch advertisements and earn TRX rewards.</p>
+
+  </div>
+
+  <div class="quick-section">
+
+    <div class="section-heading">
+      <h3>QUICK ACTIONS</h3>
+
+      <button
+        class="explore"
+        onclick="showPage('tasks')">
+        Explore
+      </button>
+    </div>
+
+    <div class="quick-grid">
+
+      <button
+        class="quick-card"
+        onclick="showPage('tasks')">
+
+        <span class="quick-icon">☑</span>
+
+        <span>
+          <strong>Daily tasks</strong>
+          <small>View activities</small>
+        </span>
+
+      </button>
+
+      <button
+        class="quick-card"
+        onclick="showPage('refer')">
+
+        <span class="quick-icon">♧</span>
+
+        <span>
+          <strong>Invite friends</strong>
+          <small>Share with friends</small>
+        </span>
+
+      </button>
+
+    </div>
+  </div>
+
+  <div class="guide-card">
+
+    <h3>GETTING STARTED</h3>
+
+    <p class="guide-subtitle">
+      Three simple ways to explore TRX Reward
+    </p>
+
+    <div class="guide-list">
+
+      <div class="guide-item">
+        <span class="guide-number">01</span>
+        <strong>Watch advertisements</strong>
+        <p>Explore the watch-ad feature.</p>
+      </div>
+
+      <div class="guide-item">
+        <span class="guide-number">02</span>
+        <strong>Explore daily tasks</strong>
+        <p>Find activities in Tasks.</p>
+      </div>
+
+      <div class="guide-item">
+        <span class="guide-number">03</span>
+        <strong>Invite your friends</strong>
+        <p>Explore referrals.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="activity-card">
+    <strong>No activity yet</strong>
+    <p>Your earning history will appear here.</p>
+  </div>
+
+</section>
+
+<!-- TASKS -->
+<section id="tasks" class="page">
+
+  <h2 class="page-title">Daily Tasks</h2>
+
+  <div class="info-card">
+    <h3>Daily Visit</h3>
+    <p>Visit your dashboard and explore TRX Reward.</p>
+  </div>
+
+  <div class="info-card">
+    <h3>Watch Advertisement</h3>
+    <p>Watch a rewarded advertisement.</p>
+
+    <button
+      class="action-btn"
+      onclick="watchAd()">
+      Watch Ad
+    </button>
+  </div>
+
+</section>
+
+<!-- REFER -->
+<section id="refer" class="page">
+
+  <h2 class="page-title">Refer Friends</h2>
+
+  <div class="info-card">
+    <h3>Invite Your Friends</h3>
+
+    <p>
+      Share TRX Reward with your friends.
+      Referral rewards will be enabled after connecting
+      the Telegram bot.
+    </p>
+
+    <button
+      class="action-btn"
+      onclick="sharePage()">
+      Share Website
+    </button>
+  </div>
+
+</section>
+
+<!-- WALLET -->
+<section id="wallet" class="page">
+
+  <h2 class="page-title">My Wallet</h2>
+
+  <div class="info-card">
+    <h3>TRX Balance</h3>
+
+    <p id="walletBalance">0.00 TRX</p>
+
+    <button
+      class="action-btn"
+      onclick="alert('Withdrawals are not connected yet.')">
+      Withdraw
+    </button>
+  </div>
+
+  <div class="demo-note">
+    Withdrawals will become available after the secure
+    wallet and backend system are connected.
+  </div>
+
+</section>
+
+<!-- PROFILE -->
+<section id="profile" class="page">
+
+  <h2 class="page-title">My Profile</h2>
+
+  <div class="info-card">
+    <h3 id="profileName">ARJO</h3>
+    <p>Account dashboard</p>
+  </div>
+
+  <div class="info-card">
+    <h3>Account Balance</h3>
+    <p id="profileBalance">0.00 TRX</p>
+  </div>
+
+</section>
+
+<!-- NAVIGATION -->
+<nav class="bottom-nav">
+
+  <button
+    class="nav-item active"
+    onclick="showPage('home',this)">
+    <span class="nav-icon">⌂</span>
+    <span>Home</span>
+  </button>
+
+  <button
+    class="nav-item"
+    onclick="showPage('tasks',this)">
+    <span class="nav-icon">☑</span>
+    <span>Tasks</span>
+  </button>
+
+  <button
+    class="nav-item"
+    onclick="showPage('refer',this)">
+    <span class="nav-icon">♧</span>
+    <span>Refer</span>
+  </button>
+
+  <button
+    class="nav-item"
+    onclick="showPage('wallet',this)">
+    <span class="nav-icon">▣</span>
+    <span>Wallet</span>
+  </button>
+
+  <button
+    class="nav-item"
+    onclick="showPage('profile',this)">
+    <span class="nav-icon">♙</span>
+    <span>Profile</span>
+  </button>
+
+</nav>
+
+<script>
+
+// TELEGRAM INITIALIZATION
+
+if (window.Telegram && window.Telegram.WebApp) {
+
+  const tg = window.Telegram.WebApp;
+
+  tg.ready();
+  tg.expand();
+
+  const user = tg.initDataUnsafe?.user;
+
+  if (user) {
+
+    document.getElementById("profileName").textContent =
+      user.first_name || "User";
+
+  }
+
+}
+
+// DASHBOARD FITTING
+
+function fitDashboard() {
+
+  const home = document.getElementById("home");
+
+  const nav = document.querySelector(".bottom-nav");
+
+  if (!home || !home.classList.contains("active")) return;
+
+  // Reset zoom before measuring
+  home.style.zoom = "1";
+
+  // Wait for browser layout
+  const contentHeight = home.scrollHeight;
+
+  const viewportHeight =
+    window.visualViewport
+      ? window.visualViewport.height
+      : window.innerHeight;
+
+  const availableHeight =
+    viewportHeight - nav.offsetHeight;
+
+  if (contentHeight <= 0 || availableHeight <= 0) return;
+
+  // Scale actual layout to available screen height
+  const scale = Math.min(
+    1,
+    availableHeight / contentHeight
+  );
+
+  home.style.zoom = scale;
+
+  // Never allow Home to create page scrolling
+  document.body.style.overflow = "hidden";
+
+}
+
+// INITIAL FIT
+
+window.addEventListener("load", () => {
+  requestAnimationFrame(fitDashboard);
+});
+
+// PHONE ROTATION / RESIZE
+
+window.addEventListener("resize", () => {
+  requestAnimationFrame(fitDashboard);
+});
+
+if (window.visualViewport) {
+  window.visualViewport.addEventListener("resize", () => {
+    requestAnimationFrame(fitDashboard);
+  });
+}
+
+// PAGE NAVIGATION
+
+function showPage(pageId, button) {
+
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.remove("active");
+  });
+
+  const selectedPage = document.getElementById(pageId);
+
+  if (!selectedPage) return;
+
+  selectedPage.classList.add("active");
+
+  document.querySelectorAll(".nav-item").forEach(item => {
+    item.classList.remove("active");
+  });
+
+  if (button) {
+
+    button.classList.add("active");
+
+  } else {
+
+    const pages = [
+      "home",
+      "tasks",
+      "refer",
+      "wallet",
+      "profile"
+    ];
+
+    const index = pages.indexOf(pageId);
+
+    if (index >= 0) {
+      document.querySelectorAll(".nav-item")[index]
+        .classList.add("active");
+    }
+
+  }
+
+  if (pageId === "home") {
+
+    document.body.classList.add("home-mode");
+    document.body.style.overflow = "hidden";
+
+    window.scrollTo(0, 0);
+
+    requestAnimationFrame(fitDashboard);
+
+  } else {
+
+    document.body.classList.remove("home-mode");
+    document.body.style.overflow = "auto";
+
+    window.scrollTo(0, 0);
+
+  }
+
+}
+
+// MONETAG REWARDED ADS
+
+let adBusy = false;
+
+async function watchAd() {
+
+  if (adBusy) return;
+
+  const button = document.getElementById("watchAdButton");
+
+  const buttons = document.querySelectorAll(
+    'button[onclick="watchAd()"]'
+  );
+
+  if (typeof window.show_12259553 !== "function") {
+
+    alert(
+      "Advertisement is not ready. Please check your internet connection and try again."
+    );
+
+    return;
+  }
+
+  adBusy = true;
+
+  buttons.forEach(btn => btn.disabled = true);
+
+  if (button) {
+    button.textContent = "Loading advertisement...";
+  }
+
+  try {
+
+    const tgUser =
+      window.Telegram?.WebApp?.initDataUnsafe?.user;
+
+    const userId = tgUser?.id || "guest";
+
+    const uniqueId = userId + "_ad_" + Date.now();
+
+    const result = await window.show_12259553({
+
+      type: "end",
+
+      ymid: uniqueId,
+
+      requestVar: "watch_ad_button"
+
+    });
+
+    if (result?.reward_event_type === "valued") {
+
+      alert(
+        "Advertisement verified by Monetag! Your event is recorded. TRX balance will update after secure server verification."
+      );
+
+    } else if (result?.reward_event_type === "non_valued") {
+
+      alert(
+        "This advertisement was not valued. No reward is due."
+      );
+
+    } else {
+
+      alert(
+        "The ad finished, but no reward confirmation was returned. Please try again later."
+      );
+
+    }
+
+  } catch (error) {
+
+    console.error("Monetag error:", error);
+
+    alert(
+      "Advertisement could not be loaded or verified. Please try again later."
+    );
+
+  } finally {
+
+    adBusy = false;
+
+    buttons.forEach(btn => btn.disabled = false);
+
+    if (button) {
+      button.textContent = "▷  Watch ad for TRX";
+    }
+
+  }
+
+}
+
+// SHARE
+
+function sharePage() {
+
+  if (navigator.share) {
+
+    navigator.share({
+      title: "TRX Reward",
+      text: "Check out TRX Reward!",
+      url: window.location.href
+    }).catch(() => {});
+
+  } else {
+
+    navigator.clipboard.writeText(window.location.href)
+      .then(() => alert("Website link copied!"))
+      .catch(() => alert("Copy the website link manually."));
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>
+
 }
 
 /* BALANCE */
