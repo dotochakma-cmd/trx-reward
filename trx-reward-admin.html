@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#090303">
+  <title>TRX Reward — Admin</title>
+  <style>
+    :root{--red:#ed1831;--bg:#090303;--card:#17090b;--border:#63202a;--muted:#aaa;--green:#20d98a}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:#fff;font:15px Arial,sans-serif}
+    .wrap{max-width:1000px;margin:auto;padding:20px 14px 48px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}
+    h1{font-size:24px;margin:0}h2{font-size:18px;margin:0 0 14px}.muted{color:var(--muted);font-size:13px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:17px;margin:14px 0}
+    label{display:block;font-size:13px;color:#ddd;margin:12px 0 6px}
+    input{width:100%;padding:12px;border-radius:10px;border:1px solid #63303a;background:#0d0607;color:white;font-size:15px}
+    button{border:0;border-radius:10px;padding:11px 15px;background:linear-gradient(100deg,#ff102d,#c90019);color:white;font-weight:bold;cursor:pointer}
+    button.secondary{background:#382027;border:1px solid var(--border)}button:disabled{opacity:.55;cursor:wait}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+    .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.row button{margin-top:12px}
+    .hidden{display:none!important}.status{padding:10px;border-radius:10px;background:#241216;color:#ffdce1;margin:12px 0;font-size:13px}
+    .status.ok{background:#10271d;color:#a8ffd0}.status.err{background:#351217;color:#ffc0c8}
+    .table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:600px;font-size:13px}th,td{text-align:left;padding:10px;border-bottom:1px solid #48202a;vertical-align:top}th{color:#ff9aa7}
+    .pill{display:inline-block;padding:4px 8px;border-radius:20px;background:#382027;font-size:11px}
+    .small{font-size:12px}.danger{background:#5b1722}.note{line-height:1.55}
+    @media(max-width:520px){.wrap{padding:16px 10px 36px}h1{font-size:20px}.card{padding:14px}}
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <header class="top">
+    <div><h1>TRX Reward Admin</h1><div class="muted">Private control panel</div></div>
+    <button id="logoutBtn" class="secondary hidden">Log out</button>
+  </header>
+
+  <div id="notice" class="status">Enter your admin email and password to sign in.</div>
+
+  <section id="loginCard" class="card">
+    <h2>Admin login</h2>
+    <label for="email">Admin email</label><input id="email" type="email" autocomplete="username" placeholder="you@example.com">
+    <label for="password">Password</label><input id="password" type="password" autocomplete="current-password" placeholder="Your password">
+    <div class="row"><button id="loginBtn">Sign in</button></div>
+    <p class="muted small">Use the account you created in Supabase Authentication → Users and added to public.admin_users.</p>
+  </section>
+
+  <section id="dashboard" class="hidden">
+    <div class="card">
+      <div class="row" style="justify-content:space-between"><h2>App settings</h2><span class="pill">TRX Reward</span></div>
+      <div class="grid">
+        <div><label for="minWithdrawal">Minimum withdrawal (TRX)</label><input id="minWithdrawal" type="number" min="0" step="0.000001"></div>
+        <div><label for="adReward">Reward per valued ad (TRX)</label><input id="adReward" type="number" min="0" step="0.000001"></div>
+        <div><label for="dailyLimit">Daily ad limit (0 = unlimited)</label><input id="dailyLimit" type="number" min="0" step="1"></div>
+      </div>
+      <div class="grid">
+        <div><label><input id="adsEnabled" type="checkbox" style="width:auto"> Monetag ads enabled</label></div>
+        <div><label><input id="withdrawalsEnabled" type="checkbox" style="width:auto"> Withdrawals enabled</label></div>
+      </div>
+      <div class="row"><button id="saveSettingsBtn">Save settings</button><button id="reloadBtn" class="secondary">Reload</button></div>
+    </div>
+
+    <div class="card">
+      <div class="row" style="justify-content:space-between"><h2>Users</h2><button id="usersBtn" class="secondary">Refresh users</button></div>
+      <div class="table-wrap"><table><thead><tr><th>Telegram ID</th><th>Username</th><th>Balance</th><th>Total earned</th><th>Withdrawn</th></tr></thead><tbody id="usersBody"><tr><td colspan="5">Load users to view them.</td></tr></tbody></table></div>
+    </div>
+
+    <div class="card">
+      <div class="row" style="justify-content:space-between"><h2>Withdrawal requests</h2><button id="withdrawalsBtn" class="secondary">Refresh requests</button></div>
+      <p class="muted note">Review requests carefully. Approving here records the payout as completed and deducts the amount from the user's in-app balance. Send the TRX to the user's wallet yourself before approving. This panel does not send cryptocurrency.</p>
+      <div class="table-wrap"><table><thead><tr><th>Date</th><th>Telegram ID</th><th>Amount</th><th>Wallet</th><th>Status / action</th></tr></thead><tbody id="withdrawalsBody"><tr><td colspan="5">Load requests to view them.</td></tr></tbody></table></div>
+    </div>
+    <div class="card">
+      <h2>Ad event records</h2>
+      <button id="eventsBtn" class="secondary">Refresh ad events</button>
+      <div class="table-wrap" style="margin-top:12px"><table><thead><tr><th>Date</th><th>Telegram ID</th><th>Event ID</th><th>Reward</th><th>Status</th></tr></thead><tbody id="eventsBody"><tr><td colspan="5">Load ad events to view them.</td></tr></tbody></table></div>
+    </div>
+  </section>
+  <p class="muted small">Security: this page uses only your Supabase project URL and publishable key. Never put a Supabase secret/service_role key in this file.</p>
+</main>
+
+<script type="module">
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+  // These are the public project connection values supplied by the owner.
+  const SUPABASE_URL = 'https://lubpobdlmsiyvljxfyqb.supabase.co';
+  const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_LzrqQ9tW15KtVqTdPrDWXA_qjNMvaVz';
+
+  const db = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+  const $ = id => document.getElementById(id);
+  const notice = (msg, type='') => { $('notice').textContent = msg; $('notice').className = 'status ' + type; };
+  const showDashboard = yes => {
+    $('loginCard').classList.toggle('hidden', yes);
+    $('dashboard').classList.toggle('hidden', !yes);
+    $('logoutBtn').classList.toggle('hidden', !yes);
+  };
+  const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const fmt = value => Number(value ?? 0).toFixed(6).replace(/\.?0+$/,'');
+
+  async function requireAdmin() {
+    const { data: { user }, error } = await db.auth.getUser();
+    if (error || !user) { showDashboard(false); return false; }
+    const { data, error: adminError } = await db.rpc('is_admin');
+    if (adminError || data !== true) {
+      await db.auth.signOut();
+      showDashboard(false);
+      notice('This login is not listed as an admin. Check public.admin_users and sign in again.', 'err');
+      return false;
+    }
+    showDashboard(true);
+    notice('Signed in as administrator: ' + user.email, 'ok');
+    await loadSettings();
+    return true;
+  }
+
+  async function loadSettings() {
+    const { data, error } = await db.from('app_settings').select('*').eq('id', 1).single();
+    if (error) return notice('Could not load settings: ' + error.message, 'err');
+    $('minWithdrawal').value = data.min_withdrawal;
+    $('adReward').value = data.ad_reward;
+    $('dailyLimit').value = data.daily_ad_limit;
+    $('adsEnabled').checked = data.ads_enabled;
+    $('withdrawalsEnabled').checked = data.withdrawals_enabled;
+  }
+
+  $('loginBtn').addEventListener('click', async () => {
+    const email = $('email').value.trim(), password = $('password').value;
+    if (!email || !password) return notice('Enter both email and password.', 'err');
+    $('loginBtn').disabled = true;
+    const { error } = await db.auth.signInWithPassword({ email, password });
+    $('loginBtn').disabled = false;
+    if (error) return notice('Login failed: ' + error.message, 'err');
+    await requireAdmin();
+  });
+
+  $('logoutBtn').addEventListener('click', async () => {
+    await db.auth.signOut(); showDashboard(false); notice('You have signed out.');
+  });
+
+  $('saveSettingsBtn').addEventListener('click', async () => {
+    const min = Number($('minWithdrawal').value);
+    const reward = Number($('adReward').value);
+    const limit = Number($('dailyLimit').value);
+    if (!Number.isFinite(min) || min < 0 || !Number.isFinite(reward) || reward < 0 || !Number.isInteger(limit) || limit < 0)
+      return notice('Enter valid non-negative settings. Daily limit must be a whole number.', 'err');
+    $('saveSettingsBtn').disabled = true;
+    const { error } = await db.from('app_settings').update({
+      min_withdrawal: min, ad_reward: reward, daily_ad_limit: limit,
+      ads_enabled: $('adsEnabled').checked, withdrawals_enabled: $('withdrawalsEnabled').checked,
+      updated_at: new Date().toISOString()
+    }).eq('id', 1);
+    $('saveSettingsBtn').disabled = false;
+    if (error) return notice('Could not save settings: ' + error.message, 'err');
+    notice('Settings saved successfully.', 'ok');
+  });
+
+  $('reloadBtn').addEventListener('click', loadSettings);
+
+  $('usersBtn').addEventListener('click', async () => {
+    const { data, error } = await db.from('profiles').select('telegram_id,username,balance,total_earned,total_withdrawn').order('created_at',{ascending:false}).limit(200);
+    if (error) return notice('Could not load users: ' + error.message, 'err');
+    $('usersBody').innerHTML = data.length ? data.map(u => `<tr><td>${esc(u.telegram_id)}</td><td>${esc(u.username || '—')}</td><td>${fmt(u.balance)} TRX</td><td>${fmt(u.total_earned)} TRX</td><td>${fmt(u.total_withdrawn)} TRX</td></tr>`).join('') : '<tr><td colspan="5">No users yet.</td></tr>';
+    notice(`Loaded ${data.length} users (maximum 200).`, 'ok');
+  });
+
+  $('withdrawalsBtn').addEventListener('click', async () => {
+    const { data, error } = await db.from('withdrawals').select('id,telegram_id,amount,wallet_address,status,created_at').order('created_at',{ascending:false}).limit(200);
+    if (error) return notice('Could not load withdrawals: ' + error.message, 'err');
+    $('withdrawalsBody').innerHTML = data.length ? data.map(w => `<tr><td>${esc(new Date(w.created_at).toLocaleString())}</td><td>${esc(w.telegram_id)}</td><td>${fmt(w.amount)} TRX</td><td>${esc(w.wallet_address)}</td><td><span class="pill">${esc(w.status)}</span>${w.status === 'pending' ? `<div class="row"><button data-approve="${esc(w.id)}">Approve</button><button class="secondary danger" data-reject="${esc(w.id)}">Reject</button></div>` : ''}</td></tr>`).join('') : '<tr><td colspan="5">No withdrawal requests yet.</td></tr>';
+    notice(`Loaded ${data.length} withdrawal requests (maximum 200).`, 'ok');
+  });
+
+  $('withdrawalsBody').addEventListener('click', async event => {
+    const approve = event.target.closest('[data-approve]'), reject = event.target.closest('[data-reject]');
+    const button = approve || reject; if (!button) return;
+    const id = button.dataset.approve || button.dataset.reject;
+    const decision = approve ? 'approved' : 'rejected';
+    if (approve && !confirm('Confirm the TRX payout has already been sent to this wallet?')) return;
+    if (reject && !confirm('Reject this withdrawal request?')) return;
+    const { error } = await db.rpc('admin_review_withdrawal', { p_withdrawal_id: id, p_decision: decision });
+    if (error) return notice('Could not update withdrawal: ' + error.message, 'err');
+    notice('Withdrawal marked ' + decision + '.', 'ok');
+    $('withdrawalsBtn').click();
+  });
+
+  $('eventsBtn').addEventListener('click', async () => {
+    const { data, error } = await db.from('ad_events').select('telegram_id,event_id,reward,status,created_at').order('created_at',{ascending:false}).limit(200);
+    if (error) return notice('Could not load ad events: ' + error.message, 'err');
+    $('eventsBody').innerHTML = data.length ? data.map(e => `<tr><td>${esc(new Date(e.created_at).toLocaleString())}</td><td>${esc(e.telegram_id)}</td><td>${esc(e.event_id)}</td><td>${fmt(e.reward)} TRX</td><td>${esc(e.status)}</td></tr>`).join('') : '<tr><td colspan="5">No ad events yet.</td></tr>';
+    notice(`Loaded ${data.length} ad events (maximum 200).`, 'ok');
+  });
+
+  db.auth.onAuthStateChange((_event, session) => {
+    if (session) requireAdmin();
+    else showDashboard(false);
+  });
+  requireAdmin();
+</script>
+</body>
+</html>
