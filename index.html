@@ -3,97 +3,58 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#090303">
 <title>TRX Reward</title>
 
-<style>
-:root {
-  --red: #ed1831;
-  --dark: #090303;
-  --card: #17090b;
-  --border: #63202a;
-  --muted: #aaa;
-}
+<!-- Monetag SDK -->
+<script src="//libtl.com/sdk.js" data-zone="12259553" data-sdk="show_12259553"></script>
 
+<style>
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html, body {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+:root {
+  --red: #ed1831;
+  --dark-red: #5b0009;
+  --card: #17090b;
+  --border: #63202a;
+  --muted: #aaa;
 }
 
 body {
-  background: var(--dark);
+  background: #090303;
   color: white;
   font-family: Arial, sans-serif;
+  min-height: 100vh;
+  padding-bottom: 72px;
 }
 
-button {
-  font-family: inherit;
-  cursor: pointer;
-}
-
-.app {
+main {
   width: 100%;
   max-width: 650px;
-  height: 100dvh;
-  height: 100vh;
-  height: 100dvh;
   margin: auto;
-  position: relative;
-  overflow: hidden;
-  background:
-    radial-gradient(ellipse at 90% 15%, #250000 0%, transparent 42%),
-    #090303;
-}
-
-/* PAGES */
-
-.page {
-  display: none;
-  width: 100%;
-  height: calc(100% - 70px);
-  overflow-y: auto;
-  padding-bottom: 12px;
-}
-
-.page.active {
-  display: block;
-}
-
-#home.page.active {
-  height: calc(100% - 70px);
-  overflow: hidden;
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto auto auto;
-  gap: 9px;
-  padding: 7px 0 8px;
 }
 
 /* PROFILE */
-
 .profile {
   display: flex;
   align-items: center;
-  gap: 11px;
-  padding: 3px 15px;
-  min-width: 0;
+  gap: 10px;
+  padding: 9px 15px;
 }
 
 .avatar {
-  width: 55px;
-  height: 55px;
-  min-width: 55px;
+  width: 54px;
+  height: 54px;
+  min-width: 54px;
   border-radius: 50%;
   background: linear-gradient(145deg, #ff394e, #c90019);
   border: 3px solid #ff7180;
-  box-shadow: 0 0 17px #ed183188;
+  box-shadow: 0 0 12px #ed183188;
   display: grid;
   place-items: center;
   font-size: 27px;
@@ -103,6 +64,792 @@ button {
 .welcome {
   color: #aaa;
   font-size: 14px;
+  line-height: 1.2;
+}
+
+.username {
+  font-size: 22px;
+  margin-top: 3px;
+}
+
+.profile-icon {
+  margin-left: auto;
+  width: 43px;
+  height: 43px;
+  border: 2px solid var(--red);
+  border-radius: 14px;
+  color: var(--red);
+  display: grid;
+  place-items: center;
+  font-size: 23px;
+}
+
+/* BALANCE CARD */
+.balance-card {
+  margin: 4px 12px 10px;
+  padding: 14px 13px;
+  border: 2px solid var(--red);
+  border-radius: 27px;
+  background:
+    radial-gradient(circle at 85% 20%, #580000 0%, transparent 45%),
+    linear-gradient(135deg, #370000, #100303 75%);
+  box-shadow: 0 0 16px #79000d;
+}
+
+.balance-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.balance-heading h3 {
+  color: #bbb;
+  letter-spacing: 1.5px;
+  font-size: 12px;
+}
+
+.currency {
+  background: #67202b;
+  padding: 7px 11px;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.green-dot {
+  color: #00ed79;
+}
+
+.amount {
+  font-size: 36px;
+  font-weight: bold;
+  margin: 11px 0;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.stat {
+  background: #211113;
+  border: 1px solid var(--border);
+  border-radius: 19px;
+  padding: 10px 3px;
+  text-align: center;
+}
+
+.stat p {
+  color: #bbb;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.stat h2 {
+  margin-top: 8px;
+  font-size: 17px;
+}
+
+.primary-btn {
+  width: 100%;
+  margin-top: 12px;
+  padding: 13px 9px;
+  border: none;
+  border-radius: 23px;
+  background: linear-gradient(100deg, #ff102d, #c90019);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 5px 18px #ed183155;
+}
+
+.primary-btn:active {
+  transform: scale(.98);
+}
+
+/* PAGES */
+.page {
+  display: none;
+  padding-top: 20px;
+}
+
+.page.active {
+  display: block;
+}
+
+#home.page {
+  padding-top: 0;
+}
+
+#home.page.active {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 138px);
+}
+
+.section-title {
+  padding: 20px 22px;
+  font-size: 27px;
+}
+
+.info-card {
+  margin: 12px 22px;
+  padding: 24px;
+  border: 2px solid var(--border);
+  border-radius: 28px;
+  background: var(--card);
+}
+
+.info-card h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.info-card p {
+  color: #aaa;
+  line-height: 1.6;
+}
+
+.info-card button {
+  margin-top: 18px;
+  background: #ed1831;
+  color: white;
+  border: none;
+  padding: 13px 20px;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.demo-note {
+  margin: 8px 12px 10px;
+  padding: 8px 10px;
+  color: #aaa;
+  font-size: 10px;
+  line-height: 1.35;
+  border: 1px solid #63202a;
+  border-radius: 11px;
+}
+
+/* QUICK ACTIONS */
+.quick-actions {
+  margin: 2px 12px 10px;
+}
+
+.home-section-heading,
+.activity-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 2px 8px;
+}
+
+.home-section-heading h2,
+.activity-heading h2 {
+  font-size: 12px;
+  letter-spacing: 1.4px;
+  color: #c9bfc0;
+}
+
+.home-section-heading > span {
+  font-size: 11px;
+  color: #ff5267;
+}
+
+.quick-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.quick-action {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  grid-template-rows: auto auto;
+  align-items: center;
+  column-gap: 9px;
+  padding: 10px;
+  text-align: left;
+  color: white;
+  background: linear-gradient(135deg, #2b0d12, #150709);
+  border: 1px solid #63202a;
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+.quick-icon {
+  grid-row: 1 / 3;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  background: #651522;
+  color: #ff5267;
+  font-size: 20px;
+}
+
+.quick-title {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.quick-subtitle {
+  margin-top: 3px;
+  color: #aaa;
+  font-size: 10px;
+}
+
+/* GETTING STARTED */
+.getting-started {
+  margin: 4px 12px 10px;
+  padding: 13px 14px 10px;
+  border: 1px solid #63202a;
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 100% 0%, #3a0b13 0%, transparent 48%),
+    linear-gradient(145deg, #1d0a0e, #100608);
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  min-height: 205px;
+}
+
+.getting-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 7px;
+}
+
+.getting-heading h2 {
+  color: #f2dfe2;
+  font-size: 12px;
+  letter-spacing: 1.4px;
+}
+
+.getting-heading p {
+  color: #a9979a;
+  font-size: 10px;
+  margin-top: 4px;
+}
+
+.sparkle {
+  color: #ff5267;
+  font-size: 23px;
+}
+
+.starter-step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 2px;
+  border-top: 1px solid #472027;
+}
+
+.step-number {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  color: #ff7182;
+  background: #45121d;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.step-copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.step-copy strong {
+  display: block;
+  color: #fff;
+  font-size: 11px;
+}
+
+.step-copy p {
+  margin-top: 3px;
+  color: #a99a9c;
+  font-size: 10px;
+  line-height: 1.3;
+}
+
+.step-arrow {
+  color: #ff5267;
+  font-size: 22px;
+  line-height: 1;
+}
+
+/* RECENT ACTIVITY */
+.activity-card {
+  margin: 2px 12px 10px;
+  padding: 11px 12px;
+  background: #120709;
+  border: 1px solid #4f1b24;
+  border-radius: 17px;
+}
+
+.activity-heading {
+  margin-bottom: 8px;
+}
+
+.activity-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ed1831;
+  box-shadow: 0 0 8px #ed1831;
+}
+
+.activity-empty {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 2px 2px;
+}
+
+.activity-symbol {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  background: #241015;
+  color: #ff5267;
+  font-size: 20px;
+}
+
+.activity-empty strong {
+  display: block;
+  font-size: 12px;
+}
+
+.activity-empty p {
+  margin-top: 3px;
+  color: #999;
+  font-size: 10px;
+}
+
+/* BOTTOM NAVIGATION */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 66px;
+  background: #080303;
+  border-top: 1px solid #451018;
+  display: flex;
+  justify-content: space-around;
+  z-index: 10;
+}
+
+.nav-item {
+  position: relative;
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: #999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.nav-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.nav-item.active {
+  color: var(--red);
+}
+
+.nav-item.active::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  height: 4px;
+  width: 70%;
+  background: var(--red);
+  left: 15%;
+  border-radius: 0 0 5px 5px;
+}
+
+/* SMALL SCREENS */
+@media (max-width: 360px) {
+  .profile {
+    padding: 7px 12px;
+  }
+
+  .avatar {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    font-size: 24px;
+  }
+
+  .username {
+    font-size: 20px;
+  }
+
+  .balance-card {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 12px 10px;
+  }
+
+  .stat p {
+    font-size: 9px;
+  }
+
+  .stat h2 {
+    font-size: 15px;
+  }
+
+  .quick-action {
+    padding: 8px;
+  }
+}
+
+@media (max-height: 760px) {
+  .profile {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  .balance-card {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 7px;
+  }
+
+  .amount {
+    font-size: 31px;
+    margin: 7px 0;
+  }
+
+  .stat {
+    padding: 7px 2px;
+  }
+
+  .stat h2 {
+    margin-top: 5px;
+    font-size: 15px;
+  }
+
+  .primary-btn {
+    margin-top: 8px;
+    padding: 10px 8px;
+  }
+
+  .getting-started {
+    min-height: 180px;
+    padding: 9px 12px 7px;
+  }
+
+  .starter-step {
+    padding: 6px 2px;
+  }
+
+  .quick-action {
+    padding: 8px;
+  }
+
+  .activity-card {
+    padding: 8px 10px;
+  }
+}
+</style>
+</head>
+
+<body>
+<main>
+
+  <!-- HOME PAGE -->
+  <section id="home" class="page active">
+
+    <div class="profile">
+      <div class="avatar">T</div>
+
+      <div>
+        <div class="welcome">Welcome back</div>
+        <h1 class="username">ARJO</h1>
+      </div>
+
+      <div class="profile-icon">◇</div>
+    </div>
+
+    <div class="balance-card">
+      <div class="balance-heading">
+        <h3>YOUR BALANCE</h3>
+        <div class="currency">
+          <span class="green-dot">●</span> TRX
+        </div>
+      </div>
+
+      <div class="amount">0.00</div>
+
+      <div class="stats">
+        <div class="stat">
+          <p>EARNED</p>
+          <h2>0.00</h2>
+        </div>
+
+        <div class="stat">
+          <p>WITHDRAWN</p>
+          <h2>0.00</h2>
+        </div>
+
+        <div class="stat">
+          <p>ADS</p>
+          <h2>0</h2>
+        </div>
+      </div>
+
+      <button class="primary-btn" onclick="watchAd()">
+        ▷ &nbsp; Watch ad for TRX
+      </button>
+    </div>
+
+    <section class="quick-actions">
+      <div class="home-section-heading">
+        <h2>QUICK ACTIONS</h2>
+        <span>Explore</span>
+      </div>
+
+      <div class="quick-grid">
+        <button class="quick-action" onclick="showPage('tasks', document.querySelectorAll('.nav-item')[1])">
+          <span class="quick-icon">☑</span>
+          <span class="quick-title">Daily tasks</span>
+          <span class="quick-subtitle">View available tasks</span>
+        </button>
+
+        <button class="quick-action" onclick="showPage('refer', document.querySelectorAll('.nav-item')[2])">
+          <span class="quick-icon">♧</span>
+          <span class="quick-title">Invite friends</span>
+          <span class="quick-subtitle">Share with friends</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="getting-started">
+      <div class="getting-heading">
+        <div>
+          <h2>GETTING STARTED</h2>
+          <p>Three simple ways to explore TRX Reward</p>
+        </div>
+        <span class="sparkle">✦</span>
+      </div>
+
+      <div class="starter-step">
+        <span class="step-number">01</span>
+        <div class="step-copy">
+          <strong>Watch advertisements</strong>
+          <p>Check the watch-ad feature on your dashboard.</p>
+        </div>
+        <span class="step-arrow">›</span>
+      </div>
+
+      <div class="starter-step">
+        <span class="step-number">02</span>
+        <div class="step-copy">
+          <strong>Explore daily tasks</strong>
+          <p>Visit the Tasks tab to see available activities.</p>
+        </div>
+        <span class="step-arrow">›</span>
+      </div>
+
+      <div class="starter-step">
+        <span class="step-number">03</span>
+        <div class="step-copy">
+          <strong>Invite your friends</strong>
+          <p>Open Refer to see the sharing feature.</p>
+        </div>
+        <span class="step-arrow">›</span>
+      </div>
+    </section>
+
+    <section class="activity-card">
+      <div class="activity-heading">
+        <h2>RECENT ACTIVITY</h2>
+        <span class="activity-dot"></span>
+      </div>
+
+      <div class="activity-empty">
+        <span class="activity-symbol">↗</span>
+        <div>
+          <strong>No activity yet</strong>
+          <p>Your earning history will appear here.</p>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <!-- TASKS PAGE -->
+  <section id="tasks" class="page">
+    <h2 class="section-title">Daily Tasks</h2>
+
+    <div class="info-card">
+      <h3>Daily Visit</h3>
+      <p>Visit the website and check your dashboard.</p>
+      <button onclick="demoMessage()">Check Task</button>
+    </div>
+
+    <div class="info-card">
+      <h3>Watch Advertisement</h3>
+      <p>Watch an advertisement using the button below.</p>
+      <button onclick="watchAd()">Watch Ad</button>
+    </div>
+  </section>
+
+  <!-- REFER PAGE -->
+  <section id="refer" class="page">
+    <h2 class="section-title">Refer Friends</h2>
+
+    <div class="info-card">
+      <h3>Invite Your Friends</h3>
+      <p>Share this website with your friends.</p>
+      <button onclick="sharePage()">Share Website</button>
+    </div>
+  </section>
+
+  <!-- WALLET PAGE -->
+  <section id="wallet" class="page">
+    <h2 class="section-title">My Wallet</h2>
+
+    <div class="info-card">
+      <h3>TRX Balance</h3>
+      <p>0.00 TRX</p>
+      <button onclick="demoMessage()">Withdraw</button>
+    </div>
+
+    <div class="demo-note">
+      Withdrawals are not available yet.
+    </div>
+  </section>
+
+  <!-- PROFILE PAGE -->
+  <section id="profile" class="page">
+    <h2 class="section-title">My Profile</h2>
+
+    <div class="info-card">
+      <h3>ARJO</h3>
+      <p>Account dashboard</p>
+    </div>
+
+    <div class="info-card">
+      <h3>Account Balance</h3>
+      <p>0.00 TRX</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- BOTTOM NAVIGATION -->
+<nav class="bottom-nav">
+  <button class="nav-item active" onclick="showPage('home', this)">
+    <span class="nav-icon">⌂</span>
+    <span>Home</span>
+  </button>
+
+  <button class="nav-item" onclick="showPage('tasks', this)">
+    <span class="nav-icon">☑</span>
+    <span>Tasks</span>
+  </button>
+
+  <button class="nav-item" onclick="showPage('refer', this)">
+    <span class="nav-icon">♧</span>
+    <span>Refer</span>
+  </button>
+
+  <button class="nav-item" onclick="showPage('wallet', this)">
+    <span class="nav-icon">▣</span>
+    <span>Wallet</span>
+  </button>
+
+  <button class="nav-item" onclick="showPage('profile', this)">
+    <span class="nav-icon">♙</span>
+    <span>Profile</span>
+  </button>
+</nav>
+
+<script>
+function showPage(pageId, button) {
+  document.querySelectorAll('.page').forEach(page => {
+    page.classList.remove('active');
+  });
+
+  document.getElementById(pageId).classList.add('active');
+
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.classList.remove('active');
+  });
+
+  button.classList.add('active');
+
+  window.scrollTo(0, 0);
+}
+
+/* MONETAG REWARDED INTERSTITIAL */
+async function watchAd() {
+  if (typeof window.show_12259553 !== "function") {
+    alert("The ad is not ready yet. Please wait a moment and try again.");
+    return;
+  }
+
+  try {
+    const result = await window.show_12259553();
+
+    if (result && result.reward_event_type === "valued") {
+      alert("Ad completed! Your reward is awaiting server confirmation.");
+    } else {
+      alert("The ad flow has finished. No confirmed reward was received.");
+    }
+  } catch (error) {
+    alert("The ad could not be completed. Please try again.");
+    console.error("Monetag ad error:", error);
+  }
+}
+
+function demoMessage() {
+  alert("This feature is not connected yet.");
+}
+
+function sharePage() {
+  if (navigator.share) {
+    navigator.share({
+      title: "TRX Reward",
+      text: "Check out this website!",
+      url: window.location.href
+    });
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(window.location.href)
+      .then(() => alert("Website link copied!"))
+      .catch(() => alert("Please copy the website link from your browser."));
+  } else {
+    alert("Website link: " + window.location.href);
+  }
+}
+</script>
+
+</body>
+</html>
+
 }
 
 .username {
