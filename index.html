@@ -11,11 +11,9 @@
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <!-- Monetag SDK -->
-<script
-  src="https://libtl.com/sdk.js"
-  data-zone="12259553"
-  data-sdk="show_12259553">
-</script>
+<script src="https://libtl.com/sdk.js"
+ data-zone="12259553"
+ data-sdk="show_12259553"></script>
 
 <style>
 * {
@@ -32,74 +30,92 @@
   --muted: #aaa;
 }
 
-body {
+html, body {
+  width: 100%;
+  min-height: 100%;
   background: var(--dark);
   color: white;
   font-family: Arial, sans-serif;
-  min-height: 100vh;
-  padding-bottom: 85px;
+}
+
+body {
+  padding-bottom: 76px;
+  overflow-x: hidden;
+}
+
+body.dashboard-view {
+  overflow: hidden;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
 }
 
 .page {
   display: none;
-  padding: 20px 0;
+  padding: 10px 0;
 }
 
 .page.active {
   display: block;
 }
 
+/* PROFILE */
+
 .profile {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 5px 18px 20px;
+  gap: 10px;
+  padding: 3px 14px 10px;
 }
 
 .avatar {
-  width: 65px;
-  height: 65px;
+  width: 43px;
+  height: 43px;
+  min-width: 43px;
   border-radius: 50%;
   display: grid;
   place-items: center;
-  font-size: 30px;
+  font-size: 21px;
   font-weight: bold;
   background: linear-gradient(145deg,#ff394e,#a90019);
-  border: 3px solid #ff7180;
-  box-shadow: 0 0 15px #ed183155;
+  border: 2px solid #ff7180;
 }
 
 .welcome {
   color: var(--muted);
-  font-size: 16px;
+  font-size: 11px;
 }
 
 .username {
-  font-size: 26px;
-  margin-top: 4px;
+  font-size: 19px;
+  margin-top: 2px;
 }
 
 .profile-icon {
   margin-left: auto;
-  width: 48px;
-  height: 48px;
+  width: 36px;
+  height: 36px;
   border: 2px solid var(--red);
-  border-radius: 15px;
+  border-radius: 11px;
   color: var(--red);
   display: grid;
   place-items: center;
-  font-size: 24px;
+  font-size: 19px;
 }
 
+/* BALANCE */
+
 .balance-card {
-  margin: 0 13px 22px;
-  padding: 20px 16px;
-  border: 2px solid var(--red);
-  border-radius: 30px;
+  margin: 0 10px 10px;
+  padding: 13px;
+  border: 2px solid var(--border);
+  border-radius: 23px;
   background:
     radial-gradient(circle at 85% 20%,#580000 0%,transparent 45%),
     linear-gradient(135deg,#370000,#100303 75%);
-  box-shadow: 0 0 15px #79000d;
+  box-shadow: 0 0 12px #79000d;
 }
 
 .balance-heading {
@@ -111,14 +127,15 @@ body {
 
 .balance-heading h3 {
   color: #bbb;
-  letter-spacing: 1.5px;
-  font-size: 15px;
+  letter-spacing: 1px;
+  font-size: 12px;
 }
 
 .currency {
   background: #67202b;
-  padding: 11px 16px;
-  border-radius: 30px;
+  padding: 7px 12px;
+  border-radius: 25px;
+  font-size: 12px;
   font-weight: bold;
 }
 
@@ -127,49 +144,48 @@ body {
 }
 
 .amount {
-  font-size: 53px;
+  font-size: 36px;
   font-weight: bold;
-  margin: 30px 0;
+  margin: 12px 0;
 }
 
 .stats {
   display: grid;
   grid-template-columns: repeat(3,minmax(0,1fr));
-  gap: 8px;
+  gap: 6px;
 }
 
 .stat {
   background: #211113;
-  border: 2px solid var(--border);
-  border-radius: 28px;
-  padding: 15px 4px;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  padding: 9px 3px;
   text-align: center;
 }
 
 .stat p {
   color: #bbb;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: bold;
 }
 
 .stat h2 {
-  margin-top: 12px;
-  font-size: 21px;
+  margin-top: 5px;
+  font-size: 17px;
 }
 
 .primary-btn,
 .action-btn {
   width: 100%;
-  margin-top: 25px;
-  padding: 18px 12px;
+  margin-top: 12px;
+  padding: 12px;
   border: none;
-  border-radius: 40px;
+  border-radius: 30px;
   background: linear-gradient(100deg,#ff102d,#c90019);
   color: white;
-  font-size: 19px;
+  font-size: 15px;
   font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0 5px 18px #ed183155;
+  box-shadow: 0 4px 12px #ed183155;
 }
 
 button:disabled {
@@ -177,19 +193,21 @@ button:disabled {
   cursor: wait;
 }
 
+/* DAILY LIMIT */
+
 .limit-card {
-  margin: 0 13px 22px;
-  padding: 22px;
-  border: 2px solid var(--border);
-  border-radius: 25px;
+  margin: 0 10px 10px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 17px;
   background: #16090b;
 }
 
 .limit-heading {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
-  font-size: 16px;
+  gap: 8px;
+  font-size: 12px;
 }
 
 .limit-value {
@@ -198,22 +216,23 @@ button:disabled {
 }
 
 .limit-card p {
-  margin-top: 15px;
+  margin-top: 6px;
   color: #aaa;
-  line-height: 1.5;
+  font-size: 11px;
 }
 
-.quick-section,
-.guide-card,
-.activity-card {
-  margin: 0 13px 20px;
+/* QUICK ACTIONS */
+
+.quick-section {
+  margin: 0 10px 10px;
 }
 
 .section-heading {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 12px;
-  font-size: 13px;
+  align-items: center;
+  margin-bottom: 7px;
+  font-size: 11px;
   letter-spacing: 1px;
 }
 
@@ -221,163 +240,185 @@ button:disabled {
   color: #ff5267;
   background: none;
   border: none;
+  font-size: 11px;
 }
 
 .quick-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: 8px;
 }
 
 .quick-card {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 13px 9px;
+  gap: 8px;
+  padding: 9px 7px;
   background: #19090d;
   border: 1px solid var(--border);
-  border-radius: 17px;
+  border-radius: 13px;
   color: white;
   text-align: left;
 }
 
 .quick-icon {
-  width: 38px;
-  height: 38px;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
   display: grid;
   place-items: center;
   background: #521421;
-  border-radius: 10px;
-  font-size: 20px;
+  border-radius: 9px;
+  font-size: 17px;
 }
 
 .quick-card strong {
-  font-size: 12px;
+  font-size: 11px;
 }
 
 .quick-card small {
   display: block;
-  margin-top: 5px;
+  margin-top: 3px;
   color: #aaa;
-  font-size: 10px;
+  font-size: 9px;
 }
 
+/* GETTING STARTED */
+
 .guide-card {
-  padding: 17px;
+  margin: 0 10px 10px;
+  padding: 11px;
   border: 1px solid var(--border);
-  border-radius: 23px;
+  border-radius: 17px;
   background: #16090b;
 }
 
 .guide-card h3 {
-  font-size: 14px;
+  font-size: 11px;
   letter-spacing: 1px;
 }
 
 .guide-subtitle {
   color: #aaa;
-  font-size: 12px;
-  margin: 10px 0;
+  font-size: 10px;
+  margin: 5px 0 8px;
+}
+
+.guide-list {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 6px;
 }
 
 .guide-item {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 0;
-  border-top: 1px solid #49202a;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  padding: 7px;
+  border: 1px solid #49202a;
+  border-radius: 11px;
+  min-width: 0;
 }
 
 .guide-number {
-  width: 42px;
-  height: 42px;
-  min-width: 42px;
+  width: 26px;
+  height: 26px;
   display: grid;
   place-items: center;
-  border-radius: 12px;
+  border-radius: 8px;
   background: #521421;
   color: #ff7182;
+  font-size: 11px;
   font-weight: bold;
 }
 
 .guide-item strong {
-  font-size: 14px;
+  font-size: 10px;
+  line-height: 1.3;
 }
 
 .guide-item p {
   color: #aaa;
-  font-size: 12px;
-  margin-top: 5px;
+  font-size: 9px;
+  line-height: 1.3;
 }
 
+/* ACTIVITY */
+
 .activity-card {
-  padding: 15px;
+  margin: 0 10px;
+  padding: 10px;
   border: 1px solid var(--border);
-  border-radius: 20px;
+  border-radius: 13px;
   background: #150809;
 }
 
 .activity-card strong {
-  font-size: 14px;
+  font-size: 11px;
 }
 
 .activity-card p {
   color: #aaa;
-  font-size: 12px;
-  margin-top: 5px;
+  font-size: 10px;
+  margin-top: 3px;
 }
 
+/* OTHER PAGES */
+
 .page-title {
-  padding: 45px 22px;
-  font-size: 30px;
+  padding: 30px 20px;
+  font-size: 27px;
 }
 
 .info-card {
-  margin: 12px 22px;
-  padding: 28px;
+  margin: 10px 15px;
+  padding: 22px;
   border: 2px solid var(--border);
-  border-radius: 30px;
+  border-radius: 24px;
   background: var(--card);
 }
 
 .info-card h3 {
-  font-size: 21px;
-  margin-bottom: 15px;
+  font-size: 19px;
+  margin-bottom: 10px;
 }
 
 .info-card p {
   color: #aaa;
-  line-height: 1.6;
-  font-size: 16px;
+  line-height: 1.5;
+  font-size: 14px;
 }
 
 .info-card .action-btn {
   width: auto;
-  padding: 16px 30px;
-  font-size: 17px;
+  padding: 13px 25px;
+  font-size: 15px;
 }
 
 .demo-note {
-  margin: 20px 22px;
-  padding: 16px;
+  margin: 15px;
+  padding: 13px;
   color: #aaa;
-  font-size: 13px;
+  font-size: 12px;
   line-height: 1.5;
   border: 1px solid var(--border);
-  border-radius: 17px;
+  border-radius: 15px;
 }
+
+/* BOTTOM NAVIGATION */
 
 .bottom-nav {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 82px;
+  height: 76px;
   background: #080303;
   border-top: 2px solid #451018;
   display: flex;
   justify-content: space-around;
-  z-index: 10;
+  z-index: 100;
 }
 
 .nav-item {
@@ -390,13 +431,12 @@ button:disabled {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 7px;
-  font-size: 13px;
-  cursor: pointer;
+  gap: 5px;
+  font-size: 11px;
 }
 
 .nav-icon {
-  font-size: 28px;
+  font-size: 23px;
   line-height: 1;
 }
 
@@ -408,45 +448,29 @@ button:disabled {
   content: "";
   position: absolute;
   top: 0;
-  height: 5px;
-  width: 65%;
+  height: 4px;
+  width: 60%;
   background: var(--red);
-  left: 17.5%;
+  left: 20%;
 }
 
+/* SMALL PHONES */
+
 @media(max-width:360px) {
-  .profile {
-    padding-left: 12px;
-    padding-right: 12px;
-  }
-
-  .balance-card {
-    margin-left: 10px;
-    margin-right: 10px;
-    padding: 17px 11px;
-  }
-
-  .stat p {
-    font-size: 10px;
+  .amount {
+    font-size: 32px;
   }
 
   .stat h2 {
-    font-size: 17px;
+    font-size: 15px;
   }
 
-  .amount {
-    font-size: 43px;
+  .guide-item strong {
+    font-size: 9px;
   }
 
-  .nav-item {
-    font-size: 11px;
-  }
-
-  .guide-card,
-  .quick-section,
-  .activity-card {
-    margin-left: 10px;
-    margin-right: 10px;
+  .guide-item p {
+    font-size: 8px;
   }
 }
 </style>
@@ -454,104 +478,10 @@ button:disabled {
 
 <body>
 
-<!-- CSS TEXT CLEANUP PROTECTION -->
-<script>
-(function removeStrayCssText() {
-
-  const cssTextPattern =
-    /(?:^|\})\s*\.[a-zA-Z_-][\w-]*\s*\{[^{}]*(?:font-size|margin|padding|border|display|color|background|box-shadow|align-items|justify-content)\s*:/;
-
-  function clean(root) {
-
-    root.childNodes.forEach(node => {
-
-      if (node.nodeType === Node.TEXT_NODE) {
-
-        const value = node.nodeValue || "";
-
-        if (
-          cssTextPattern.test(value) &&
-          /(?:\.username|\.profile-icon|\.balance-card|\.balance-heading|\.bottom-nav)/.test(value)
-        ) {
-          node.remove();
-        }
-
-      } else if (
-        node.nodeType === Node.ELEMENT_NODE &&
-        node.tagName !== "SCRIPT" &&
-        node.tagName !== "STYLE"
-      ) {
-
-        clean(node);
-
-      }
-
-    });
-
-  }
-
-  function start() {
-
-    clean(document.body);
-
-    const observer = new MutationObserver(mutations => {
-
-      for (const mutation of mutations) {
-
-        mutation.addedNodes.forEach(node => {
-
-          if (node.nodeType === Node.TEXT_NODE) {
-
-            const value = node.nodeValue || "";
-
-            if (
-              cssTextPattern.test(value) &&
-              /(?:\.username|\.profile-icon|\.balance-card|\.balance-heading|\.bottom-nav)/.test(value)
-            ) {
-              node.remove();
-            }
-
-          } else if (node.nodeType === Node.ELEMENT_NODE) {
-
-            clean(node);
-
-          }
-
-        });
-
-      }
-
-    });
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true
-    });
-
-  }
-
-  if (document.readyState === "loading") {
-
-    document.addEventListener(
-      "DOMContentLoaded",
-      start,
-      { once: true }
-    );
-
-  } else {
-
-    start();
-
-  }
-
-})();
-</script>
-
-<!-- HOME -->
+<!-- HOME DASHBOARD -->
 <section id="home" class="page active">
 
   <div class="profile">
-
     <div class="avatar">T</div>
 
     <div>
@@ -560,19 +490,17 @@ button:disabled {
     </div>
 
     <div class="profile-icon">◇</div>
-
   </div>
 
+  <!-- BALANCE -->
   <div class="balance-card">
 
     <div class="balance-heading">
-
       <h3>YOUR BALANCE</h3>
 
       <div class="currency">
         <span class="green-dot">●</span> TRX
       </div>
-
     </div>
 
     <div class="amount" id="balance">0.00</div>
@@ -605,6 +533,7 @@ button:disabled {
 
   </div>
 
+  <!-- DAILY LIMIT -->
   <div class="limit-card">
 
     <div class="limit-heading">
@@ -616,10 +545,10 @@ button:disabled {
 
   </div>
 
+  <!-- QUICK ACTIONS -->
   <div class="quick-section">
 
     <div class="section-heading">
-
       <h3>QUICK ACTIONS</h3>
 
       <button
@@ -627,7 +556,6 @@ button:disabled {
         onclick="showPage('tasks')">
         Explore
       </button>
-
     </div>
 
     <div class="quick-grid">
@@ -659,9 +587,9 @@ button:disabled {
       </button>
 
     </div>
-
   </div>
 
+  <!-- GETTING STARTED -->
   <div class="guide-card">
 
     <h3>GETTING STARTED</h3>
@@ -670,41 +598,30 @@ button:disabled {
       Three simple ways to explore TRX Reward
     </p>
 
-    <div class="guide-item">
+    <div class="guide-list">
 
-      <span class="guide-number">01</span>
-
-      <div>
+      <div class="guide-item">
+        <span class="guide-number">01</span>
         <strong>Watch advertisements</strong>
         <p>Explore the watch-ad feature.</p>
       </div>
 
-    </div>
-
-    <div class="guide-item">
-
-      <span class="guide-number">02</span>
-
-      <div>
+      <div class="guide-item">
+        <span class="guide-number">02</span>
         <strong>Explore daily tasks</strong>
-        <p>Find activities in the Tasks tab.</p>
+        <p>Find activities in Tasks.</p>
       </div>
 
-    </div>
-
-    <div class="guide-item">
-
-      <span class="guide-number">03</span>
-
-      <div>
+      <div class="guide-item">
+        <span class="guide-number">03</span>
         <strong>Invite your friends</strong>
-        <p>Explore the referral feature.</p>
+        <p>Explore referrals.</p>
       </div>
 
     </div>
-
   </div>
 
+  <!-- ACTIVITY -->
   <div class="activity-card">
     <strong>No activity yet</strong>
     <p>Your earning history will appear here.</p>
@@ -723,9 +640,7 @@ button:disabled {
   </div>
 
   <div class="info-card">
-
     <h3>Watch Advertisement</h3>
-
     <p>Watch a rewarded advertisement.</p>
 
     <button
@@ -733,7 +648,6 @@ button:disabled {
       onclick="watchAd()">
       Watch Ad
     </button>
-
   </div>
 
 </section>
@@ -744,7 +658,6 @@ button:disabled {
   <h2 class="page-title">Refer Friends</h2>
 
   <div class="info-card">
-
     <h3>Invite Your Friends</h3>
 
     <p>
@@ -758,7 +671,6 @@ button:disabled {
       onclick="sharePage()">
       Share Website
     </button>
-
   </div>
 
 </section>
@@ -769,7 +681,6 @@ button:disabled {
   <h2 class="page-title">My Wallet</h2>
 
   <div class="info-card">
-
     <h3>TRX Balance</h3>
 
     <p id="walletBalance">0.00 TRX</p>
@@ -779,7 +690,6 @@ button:disabled {
       onclick="alert('Withdrawals are not connected yet.')">
       Withdraw
     </button>
-
   </div>
 
   <div class="demo-note">
@@ -795,19 +705,13 @@ button:disabled {
   <h2 class="page-title">My Profile</h2>
 
   <div class="info-card">
-
     <h3 id="profileName">ARJO</h3>
-
     <p>Account dashboard</p>
-
   </div>
 
   <div class="info-card">
-
     <h3>Account Balance</h3>
-
     <p id="profileBalance">0.00 TRX</p>
-
   </div>
 
 </section>
@@ -818,46 +722,36 @@ button:disabled {
   <button
     class="nav-item active"
     onclick="showPage('home',this)">
-
     <span class="nav-icon">⌂</span>
     <span>Home</span>
-
   </button>
 
   <button
     class="nav-item"
     onclick="showPage('tasks',this)">
-
     <span class="nav-icon">☑</span>
     <span>Tasks</span>
-
   </button>
 
   <button
     class="nav-item"
     onclick="showPage('refer',this)">
-
     <span class="nav-icon">♧</span>
     <span>Refer</span>
-
   </button>
 
   <button
     class="nav-item"
     onclick="showPage('wallet',this)">
-
     <span class="nav-icon">▣</span>
     <span>Wallet</span>
-
   </button>
 
   <button
     class="nav-item"
     onclick="showPage('profile',this)">
-
     <span class="nav-icon">♙</span>
     <span>Profile</span>
-
   </button>
 
 </nav>
@@ -885,12 +779,61 @@ if (window.Telegram && window.Telegram.WebApp) {
 
 }
 
+// AUTOMATIC DASHBOARD FITTING
+
+function fitDashboard() {
+
+  const home = document.getElementById("home");
+
+  const nav = document.querySelector(".bottom-nav");
+
+  if (!home || !nav || !home.classList.contains("active")) {
+    return;
+  }
+
+  // Reset previous scaling
+  home.style.transform = "none";
+  home.style.width = "100%";
+  home.style.height = "auto";
+
+  const availableHeight =
+    window.innerHeight - nav.offsetHeight;
+
+  const contentHeight = home.scrollHeight;
+
+  if (contentHeight <= 0 || availableHeight <= 0) {
+    return;
+  }
+
+  // Calculate scale to fit available screen
+  const scale = Math.min(
+    1,
+    availableHeight / contentHeight
+  );
+
+  home.style.transformOrigin = "top left";
+
+  home.style.transform = `scale(${scale})`;
+
+  // Compensate for transformed width
+  home.style.width = `${100 / scale}%`;
+
+  // Compensate for transformed height
+  home.style.height = `${contentHeight}px`;
+
+  document.body.classList.add("dashboard-view");
+
+}
+
 // PAGE NAVIGATION
 
 function showPage(pageId, button) {
 
   document.querySelectorAll(".page").forEach(page => {
     page.classList.remove("active");
+    page.style.transform = "";
+    page.style.width = "";
+    page.style.height = "";
   });
 
   const selectedPage = document.getElementById(pageId);
@@ -928,9 +871,43 @@ function showPage(pageId, button) {
 
   }
 
-  window.scrollTo(0, 0);
+  if (pageId === "home") {
+
+    document.body.classList.add("dashboard-view");
+
+    requestAnimationFrame(fitDashboard);
+
+  } else {
+
+    document.body.classList.remove("dashboard-view");
+
+    window.scrollTo(0, 0);
+
+  }
 
 }
+
+// REFIT WHEN SCREEN SIZE CHANGES
+
+window.addEventListener("resize", () => {
+
+  requestAnimationFrame(fitDashboard);
+
+});
+
+if (window.visualViewport) {
+
+  window.visualViewport.addEventListener("resize", () => {
+    requestAnimationFrame(fitDashboard);
+  });
+
+}
+
+window.addEventListener("load", () => {
+
+  requestAnimationFrame(fitDashboard);
+
+});
 
 // MONETAG REWARDED AD
 
