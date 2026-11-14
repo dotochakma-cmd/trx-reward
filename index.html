@@ -454,30 +454,131 @@ button:disabled {
 
 <body>
 
+<!-- CSS TEXT CLEANUP PROTECTION -->
+<script>
+(function removeStrayCssText() {
+
+  const cssTextPattern =
+    /(?:^|\})\s*\.[a-zA-Z_-][\w-]*\s*\{[^{}]*(?:font-size|margin|padding|border|display|color|background|box-shadow|align-items|justify-content)\s*:/;
+
+  function clean(root) {
+
+    root.childNodes.forEach(node => {
+
+      if (node.nodeType === Node.TEXT_NODE) {
+
+        const value = node.nodeValue || "";
+
+        if (
+          cssTextPattern.test(value) &&
+          /(?:\.username|\.profile-icon|\.balance-card|\.balance-heading|\.bottom-nav)/.test(value)
+        ) {
+          node.remove();
+        }
+
+      } else if (
+        node.nodeType === Node.ELEMENT_NODE &&
+        node.tagName !== "SCRIPT" &&
+        node.tagName !== "STYLE"
+      ) {
+
+        clean(node);
+
+      }
+
+    });
+
+  }
+
+  function start() {
+
+    clean(document.body);
+
+    const observer = new MutationObserver(mutations => {
+
+      for (const mutation of mutations) {
+
+        mutation.addedNodes.forEach(node => {
+
+          if (node.nodeType === Node.TEXT_NODE) {
+
+            const value = node.nodeValue || "";
+
+            if (
+              cssTextPattern.test(value) &&
+              /(?:\.username|\.profile-icon|\.balance-card|\.balance-heading|\.bottom-nav)/.test(value)
+            ) {
+              node.remove();
+            }
+
+          } else if (node.nodeType === Node.ELEMENT_NODE) {
+
+            clean(node);
+
+          }
+
+        });
+
+      }
+
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+  }
+
+  if (document.readyState === "loading") {
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      start,
+      { once: true }
+    );
+
+  } else {
+
+    start();
+
+  }
+
+})();
+</script>
+
 <!-- HOME -->
 <section id="home" class="page active">
 
   <div class="profile">
+
     <div class="avatar">T</div>
+
     <div>
       <div class="welcome">Welcome back</div>
       <h1 class="username">ARJO</h1>
     </div>
+
     <div class="profile-icon">◇</div>
+
   </div>
 
   <div class="balance-card">
 
     <div class="balance-heading">
+
       <h3>YOUR BALANCE</h3>
+
       <div class="currency">
         <span class="green-dot">●</span> TRX
       </div>
+
     </div>
 
     <div class="amount" id="balance">0.00</div>
 
     <div class="stats">
+
       <div class="stat">
         <p>EARNED</p>
         <h2 id="earned">0.00</h2>
@@ -492,6 +593,7 @@ button:disabled {
         <p>ADS</p>
         <h2 id="ads">0</h2>
       </div>
+
     </div>
 
     <button
@@ -504,72 +606,101 @@ button:disabled {
   </div>
 
   <div class="limit-card">
+
     <div class="limit-heading">
       <span>Daily ad limit</span>
       <span class="limit-value">UNLIMITED ∞</span>
     </div>
+
     <p>Watch advertisements and earn TRX rewards.</p>
+
   </div>
 
   <div class="quick-section">
 
     <div class="section-heading">
+
       <h3>QUICK ACTIONS</h3>
-      <button class="explore" onclick="showPage('tasks')">
+
+      <button
+        class="explore"
+        onclick="showPage('tasks')">
         Explore
       </button>
+
     </div>
 
     <div class="quick-grid">
 
-      <button class="quick-card" onclick="showPage('tasks')">
+      <button
+        class="quick-card"
+        onclick="showPage('tasks')">
+
         <span class="quick-icon">☑</span>
+
         <span>
           <strong>Daily tasks</strong>
           <small>View activities</small>
         </span>
+
       </button>
 
-      <button class="quick-card" onclick="showPage('refer')">
+      <button
+        class="quick-card"
+        onclick="showPage('refer')">
+
         <span class="quick-icon">♧</span>
+
         <span>
           <strong>Invite friends</strong>
           <small>Share with friends</small>
         </span>
+
       </button>
 
     </div>
+
   </div>
 
   <div class="guide-card">
 
     <h3>GETTING STARTED</h3>
+
     <p class="guide-subtitle">
       Three simple ways to explore TRX Reward
     </p>
 
     <div class="guide-item">
+
       <span class="guide-number">01</span>
+
       <div>
         <strong>Watch advertisements</strong>
         <p>Explore the watch-ad feature.</p>
       </div>
+
     </div>
 
     <div class="guide-item">
+
       <span class="guide-number">02</span>
+
       <div>
         <strong>Explore daily tasks</strong>
         <p>Find activities in the Tasks tab.</p>
       </div>
+
     </div>
 
     <div class="guide-item">
+
       <span class="guide-number">03</span>
+
       <div>
         <strong>Invite your friends</strong>
         <p>Explore the referral feature.</p>
       </div>
+
     </div>
 
   </div>
@@ -592,12 +723,17 @@ button:disabled {
   </div>
 
   <div class="info-card">
+
     <h3>Watch Advertisement</h3>
+
     <p>Watch a rewarded advertisement.</p>
 
-    <button class="action-btn" onclick="watchAd()">
+    <button
+      class="action-btn"
+      onclick="watchAd()">
       Watch Ad
     </button>
+
   </div>
 
 </section>
@@ -608,16 +744,21 @@ button:disabled {
   <h2 class="page-title">Refer Friends</h2>
 
   <div class="info-card">
+
     <h3>Invite Your Friends</h3>
+
     <p>
       Share TRX Reward with your friends.
       Referral rewards will be enabled after connecting
       the Telegram bot.
     </p>
 
-    <button class="action-btn" onclick="sharePage()">
+    <button
+      class="action-btn"
+      onclick="sharePage()">
       Share Website
     </button>
+
   </div>
 
 </section>
@@ -628,7 +769,9 @@ button:disabled {
   <h2 class="page-title">My Wallet</h2>
 
   <div class="info-card">
+
     <h3>TRX Balance</h3>
+
     <p id="walletBalance">0.00 TRX</p>
 
     <button
@@ -636,6 +779,7 @@ button:disabled {
       onclick="alert('Withdrawals are not connected yet.')">
       Withdraw
     </button>
+
   </div>
 
   <div class="demo-note">
@@ -651,13 +795,19 @@ button:disabled {
   <h2 class="page-title">My Profile</h2>
 
   <div class="info-card">
+
     <h3 id="profileName">ARJO</h3>
+
     <p>Account dashboard</p>
+
   </div>
 
   <div class="info-card">
+
     <h3>Account Balance</h3>
+
     <p id="profileBalance">0.00 TRX</p>
+
   </div>
 
 </section>
@@ -665,34 +815,49 @@ button:disabled {
 <!-- BOTTOM NAVIGATION -->
 <nav class="bottom-nav">
 
-  <button class="nav-item active"
+  <button
+    class="nav-item active"
     onclick="showPage('home',this)">
+
     <span class="nav-icon">⌂</span>
     <span>Home</span>
+
   </button>
 
-  <button class="nav-item"
+  <button
+    class="nav-item"
     onclick="showPage('tasks',this)">
+
     <span class="nav-icon">☑</span>
     <span>Tasks</span>
+
   </button>
 
-  <button class="nav-item"
+  <button
+    class="nav-item"
     onclick="showPage('refer',this)">
+
     <span class="nav-icon">♧</span>
     <span>Refer</span>
+
   </button>
 
-  <button class="nav-item"
+  <button
+    class="nav-item"
     onclick="showPage('wallet',this)">
+
     <span class="nav-icon">▣</span>
     <span>Wallet</span>
+
   </button>
 
-  <button class="nav-item"
+  <button
+    class="nav-item"
     onclick="showPage('profile',this)">
+
     <span class="nav-icon">♙</span>
     <span>Profile</span>
+
   </button>
 
 </nav>
@@ -702,17 +867,22 @@ button:disabled {
 // TELEGRAM INITIALIZATION
 
 if (window.Telegram && window.Telegram.WebApp) {
+
   const tg = window.Telegram.WebApp;
+
   tg.ready();
   tg.expand();
 
   const user = tg.initDataUnsafe?.user;
 
   if (user) {
+
     const name = user.first_name || "User";
 
     document.getElementById("profileName").textContent = name;
+
   }
+
 }
 
 // PAGE NAVIGATION
@@ -723,24 +893,43 @@ function showPage(pageId, button) {
     page.classList.remove("active");
   });
 
-  document.getElementById(pageId).classList.add("active");
+  const selectedPage = document.getElementById(pageId);
+
+  if (!selectedPage) return;
+
+  selectedPage.classList.add("active");
 
   document.querySelectorAll(".nav-item").forEach(item => {
     item.classList.remove("active");
   });
 
   if (button) {
+
     button.classList.add("active");
+
   } else {
-    const pages = ["home","tasks","refer","wallet","profile"];
+
+    const pages = [
+      "home",
+      "tasks",
+      "refer",
+      "wallet",
+      "profile"
+    ];
+
     const index = pages.indexOf(pageId);
+
     if (index >= 0) {
+
       document.querySelectorAll(".nav-item")[index]
         .classList.add("active");
+
     }
+
   }
 
-  window.scrollTo(0,0);
+  window.scrollTo(0, 0);
+
 }
 
 // MONETAG REWARDED AD
@@ -752,17 +941,21 @@ async function watchAd() {
   if (adBusy) return;
 
   const button = document.getElementById("watchAdButton");
+
   const buttons = document.querySelectorAll(
     'button[onclick="watchAd()"]'
   );
 
-  // Check SDK
+  // CHECK SDK
 
   if (typeof window.show_12259553 !== "function") {
+
     alert(
       "Advertisement is not ready. Please check your internet connection and try again."
     );
+
     return;
+
   }
 
   adBusy = true;
@@ -786,9 +979,13 @@ async function watchAd() {
       userId + "_ad_" + Date.now();
 
     const result = await window.show_12259553({
+
       type: "end",
+
       ymid: uniqueId,
+
       requestVar: "watch_ad_button"
+
     });
 
     if (result?.reward_event_type === "valued") {
@@ -813,7 +1010,7 @@ async function watchAd() {
 
   } catch (error) {
 
-    console.error("Monetag error:",error);
+    console.error("Monetag error:", error);
 
     alert(
       "Advertisement could not be loaded or verified. Please try again later."
@@ -842,15 +1039,21 @@ function sharePage() {
   if (navigator.share) {
 
     navigator.share({
+
       title: "TRX Reward",
+
       text: "Check out TRX Reward!",
+
       url: window.location.href
+
     }).catch(() => {});
 
   } else {
 
     navigator.clipboard.writeText(window.location.href)
+
       .then(() => alert("Website link copied!"))
+
       .catch(() => alert("Copy the website link manually."));
 
   }
